@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>testFramework</groupId>
+    <artifactId>OddsCheckerMobileWebTestFramework</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>OddsCheckerMobileWebTestFramework</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cloudUserName>ashishmodi</cloudUserName>
+        <cloudAccessKey>6344fbbe-ccee-45c4-b39a-453d3ec691b1</cloudAccessKey>
+    </properties>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <executions>
+                    <execution>
+                        <id>acceptance-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Fork count = 3 -->
+                            <forkCount>3</forkCount>
+                            <reuseForks>true</reuseForks>
+                            <argLine>-Duser.language=en</argLine>
+                            <argLine>-Xms256m -Xmx1024m</argLine>
+                            <argLine>-Dfile.encoding=UTF-8</argLine>
+                            <useFile>false</useFile>
+                            <includes>
+                                <include>**/*AT.class</include>
+                            </includes>
+                            <testFailureIgnore>true</testFailureIgnore>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>reportBuilder.ReportGenerator</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.47.1</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.totallylazy</groupId>
+            <artifactId>totallylazy</artifactId>
+            <version>1077</version>
+        </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>maven-cucumber-reporting</artifactId>
+            <version>0.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>1.6.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>Stage Environment</id>
+            <properties>
+                <environment>https://m.oddschecker-stg.com/m/</environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>QA Environment</id>
+            <properties>
+                <environment>https://m.oddschecker-qa.com/m/</environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>Production Environment</id>
+            <properties>
+                <environment>https://m.oddschecker.com/m/</environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>local</id>
+            <properties>
+                <host>local</host>
+                <localURL>http://127.0.0.1:4723/wd/hub</localURL>
+                <newCommandTimeout>7200</newCommandTimeout>
+                <launchTimeout>300000</launchTimeout>
+                <autoAcceptAlerts>false</autoAcceptAlerts>
+                <shortTimeout>1</shortTimeout>
+                <mediumTimeout>20</mediumTimeout>
+                <longTimeout>40</longTimeout>
+            </properties>
+        </profile>
+        <profile>
+            <id>cloud</id>
+            <properties>
+                <host>cloud</host>
+                <sauceUserName>${cloudUserName}</sauceUserName>
+                <sauceAccessKey>${cloudAccessKey}</sauceAccessKey>
+                <cloudURL>http://${cloudUserName}:${cloudAccessKey}@ondemand.saucelabs.com:80/wd/hub</cloudURL>
+                <newCommandTimeout>7200</newCommandTimeout>
+                <launchTimeout>300000</launchTimeout>
+                <autoAcceptAlerts>false</autoAcceptAlerts>
+                <shortTimeout>1</shortTimeout>
+                <mediumTimeout>20</mediumTimeout>
+                <longTimeout>40</longTimeout>
+            </properties>
+        </profile>
+        <profile>
+            <id>iPhone 5 Simulator</id>
+            <properties>
+                <simulator>iPhone 5</simulator>
+                <deviceType>Simulator</deviceType>
+                <platformName>iOS</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>iPhone 6 Simulator</id>
+            <properties>
+                <simulator>iPhone 6</simulator>
+                <deviceType>Simulator</deviceType>
+                <platformName>iOS</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>iPhone 6 Plus Simulator</id>
+            <properties>
+                <simulator>iPhone 6 Plus</simulator>
+                <deviceType>Simulator</deviceType>
+                <platformName>iOS</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Samsung S6 Emulator</id>
+            <properties>
+                <emulator>S6</emulator>
+                <deviceType>Emulator</deviceType>
+                <platformName>Android</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Standard Android Emulator</id>
+            <properties>
+                <emulator>Android Emulator</emulator>
+                <deviceType>Emulator</deviceType>
+                <platformName>Android</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Nexus 6 Device</id>
+            <properties>
+                <device>Nexus 6 Device</device>
+                <deviceType>Real Device</deviceType>
+                <platformName>Android</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Samsung Galaxy S6 Edge Device</id>
+            <properties>
+                <device>Samsung Galaxy S6 Edge Device</device>
+                <deviceType>Real Device</deviceType>
+                <platformName>Android</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>iPhone 6 Device</id>
+            <properties>
+                <device>iPhone 6</device>
+                <deviceType>Real Device</deviceType>
+                <platformName>iOS</platformName>
+                <udid>6dabc83a9f0b2dfb309729de1feeddd9c013b371</udid>
+            </properties>
+        </profile>
+        <profile>
+            <id>iPad Air Device</id>
+            <properties>
+                <device>iPad Air</device>
+                <deviceType>Real Device</deviceType>
+                <platformName>iOS</platformName>
+                <udid>6dabc83a9f0b2dfb309729de1feeddd9c013b339</udid>
+            </properties>
+        </profile>
+        <profile>
+            <id>iPad Air Simulator</id>
+            <properties>
+                <simulator>iPad Air</simulator>
+                <deviceType>Simulator</deviceType>
+                <platformName>iOS</platformName>
+            </properties>
+        </profile>
+        <profile>
+            <id>iOS 7.0</id>
+            <properties>
+                <iosVersion>7.0</iosVersion>
+                <browserName>Safari</browserName>
+            </properties>
+        </profile>
+        <profile>
+            <id>iOS 8.0</id>
+            <properties>
+                <iosVersion>8.0</iosVersion>
+                <browserName>Safari</browserName>
+            </properties>
+        </profile>
+        <profile>
+            <id>iOS 9.3</id>
+            <properties>
+                <iosVersion>9.3</iosVersion>
+                <browserName>Safari</browserName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Android 5.1</id>
+            <properties>
+                <androidVersion>5.1</androidVersion>
+                <browserName>Browser</browserName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Portrait Mode</id>
+            <properties>
+                <deviceOrientation>portrait</deviceOrientation>
+            </properties>
+        </profile>
+        <profile>
+            <id>Landscape Mode</id>
+            <properties>
+                <deviceOrientation>landscape</deviceOrientation>
+            </properties>
+        </profile>
+    </profiles>
+    <repositories>
+        <repository>
+            <id>repo.bodar.com</id>
+            <url>http://repo.bodar.com</url>
+        </repository>
+        <repository>
+            <id>sonatype-releases</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
+</project>
