@@ -14,8 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cloudUserName>ashishmodi</cloudUserName>
-        <cloudAccessKey>6344fbbe-ccee-45c4-b39a-453d3ec691b1</cloudAccessKey>
+        <cloudUserName>ashmodi</cloudUserName>
+        <cloudAccessKey>e4ca908f-9d07-42e5-b431-dc6e78531ce6</cloudAccessKey>
     </properties>
 
     <build>
@@ -43,8 +43,8 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <!-- Fork count = 3 -->
-                            <forkCount>3</forkCount>
+                            <!-- Fork count = 2 -->
+                            <forkCount>2</forkCount>
                             <reuseForks>true</reuseForks>
                             <argLine>-Duser.language=en</argLine>
                             <argLine>-Xms256m -Xmx1024m</argLine>
@@ -93,11 +93,6 @@
             <version>4.12</version>
         </dependency>
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>2.47.1</version>
-        </dependency>
-        <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>1.2.2</version>
@@ -128,15 +123,9 @@
             <version>21.0</version>
         </dependency>
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>1.6.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>3.2.0</version>
+            <version>4.1.2</version>
         </dependency>
     </dependencies>
 
@@ -167,9 +156,9 @@
                 <newCommandTimeout>7200</newCommandTimeout>
                 <launchTimeout>300000</launchTimeout>
                 <autoAcceptAlerts>false</autoAcceptAlerts>
-                <shortTimeout>1</shortTimeout>
-                <mediumTimeout>20</mediumTimeout>
-                <longTimeout>40</longTimeout>
+                <shortTimeout>10</shortTimeout>
+                <mediumTimeout>30</mediumTimeout>
+                <longTimeout>60</longTimeout>
             </properties>
         </profile>
         <profile>
@@ -182,8 +171,8 @@
                 <newCommandTimeout>7200</newCommandTimeout>
                 <launchTimeout>300000</launchTimeout>
                 <autoAcceptAlerts>false</autoAcceptAlerts>
-                <shortTimeout>1</shortTimeout>
-                <mediumTimeout>20</mediumTimeout>
+                <shortTimeout>10</shortTimeout>
+                <mediumTimeout>15</mediumTimeout>
                 <longTimeout>40</longTimeout>
             </properties>
         </profile>
@@ -193,6 +182,7 @@
                 <simulator>iPhone 5</simulator>
                 <deviceType>Simulator</deviceType>
                 <platformName>iOS</platformName>
+                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
@@ -201,6 +191,7 @@
                 <simulator>iPhone 6</simulator>
                 <deviceType>Simulator</deviceType>
                 <platformName>iOS</platformName>
+                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
@@ -209,6 +200,7 @@
                 <simulator>iPhone 6 Plus</simulator>
                 <deviceType>Simulator</deviceType>
                 <platformName>iOS</platformName>
+                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
@@ -217,6 +209,7 @@
                 <emulator>S6</emulator>
                 <deviceType>Emulator</deviceType>
                 <platformName>Android</platformName>
+                <browserName>Browser</browserName>
             </properties>
         </profile>
         <profile>
@@ -225,6 +218,7 @@
                 <emulator>Android Emulator</emulator>
                 <deviceType>Emulator</deviceType>
                 <platformName>Android</platformName>
+                <browserName>Browser</browserName>
             </properties>
         </profile>
         <profile>
@@ -233,6 +227,7 @@
                 <device>Nexus 6 Device</device>
                 <deviceType>Real Device</deviceType>
                 <platformName>Android</platformName>
+                <browserName>Chrome</browserName>
             </properties>
         </profile>
         <profile>
@@ -241,6 +236,7 @@
                 <device>Samsung Galaxy S6 Edge Device</device>
                 <deviceType>Real Device</deviceType>
                 <platformName>Android</platformName>
+                <browserName>Chrome</browserName>
             </properties>
         </profile>
         <profile>
@@ -250,6 +246,7 @@
                 <deviceType>Real Device</deviceType>
                 <platformName>iOS</platformName>
                 <udid>6dabc83a9f0b2dfb309729de1feeddd9c013b371</udid>
+                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
@@ -259,6 +256,7 @@
                 <deviceType>Real Device</deviceType>
                 <platformName>iOS</platformName>
                 <udid>6dabc83a9f0b2dfb309729de1feeddd9c013b339</udid>
+                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
@@ -267,34 +265,37 @@
                 <simulator>iPad Air</simulator>
                 <deviceType>Simulator</deviceType>
                 <platformName>iOS</platformName>
+                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
             <id>iOS 7.0</id>
             <properties>
                 <iosVersion>7.0</iosVersion>
-                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
             <id>iOS 8.0</id>
             <properties>
                 <iosVersion>8.0</iosVersion>
-                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
             <id>iOS 9.3</id>
             <properties>
                 <iosVersion>9.3</iosVersion>
-                <browserName>Safari</browserName>
             </properties>
         </profile>
         <profile>
             <id>Android 5.1</id>
             <properties>
                 <androidVersion>5.1</androidVersion>
-                <browserName>Browser</browserName>
+            </properties>
+        </profile>
+        <profile>
+            <id>Android 7.0</id>
+            <properties>
+                <androidVersion>7.0</androidVersion>
             </properties>
         </profile>
         <profile>

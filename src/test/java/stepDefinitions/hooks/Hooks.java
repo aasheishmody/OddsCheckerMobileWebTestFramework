@@ -23,7 +23,7 @@ public class Hooks extends WebConnector {
         if (scenario.isFailed()) {
             String driverName = getDriver().toString();
             System.out.println("The driver name is "+driverName);
-            if (driverName.contains("iOS")) {
+            if (driverName.contains("IOS")) {
                 WebDriver augmentedDriver = new Augmenter().augment(getDriver());
                 byte[] screenshot = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.BYTES);
                 scenario.embed(screenshot, "image/jpeg");
