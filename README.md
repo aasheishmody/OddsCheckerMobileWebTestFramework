@@ -19,7 +19,7 @@
 <b>4)Can be run on different real devices. </b></br>
 <b>5)Can be run on different simulators and emulators. </b></br>
 <b>6)Can be run locally or on cloud.</b></br>
-<b>7)Can be run on different environment.s </b></br>
+<b>7)Can be run on different environments. </b></br>
 <b>8)Tests can run parallely through multiple runners and the count can be increased.  </b></br>
 <b>9)Takes screenshot of failing scenarios(tests) and embeds it in the test report.  </b></br>
 <b>9)All the timeouts are dynamic in nature with regular polling.  </b></br>
