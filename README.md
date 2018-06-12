@@ -24,7 +24,7 @@
 <b>9)Takes screenshot of failing scenarios(tests) and embeds it in the test report.  </b></br>
 <b>9)All the timeouts are dynamic in nature with regular polling.  </b></br>
 <b>10)Its possible to run all the tests at the same time on different devices using the same code base with the help of Jenkins  </b></br>
-For example - To elaborate, the existing setup allows you to run the all the tests divided among 5 instances of the same set of maven profiles  </br>
+For example - To elaborate, the existing setup allows you to run the all the tests divided among 5 instances of the same set of the selected maven profiles at a time.  </br>
 Say you have all the tests running divided among 5 instances of iPhone 6 Simulator on iOS 9.3 on cloud in portrait mode on the production environment. But say at the time
 you want to run all the tests divided among 5 instances of Android emulator on Android 7.0 on cloud in portrait mode on the production environment. This could easily be achieved 
 with jenkins or another similar tool using the same code base.
